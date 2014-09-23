@@ -1,14 +1,14 @@
 <?php
-namespace app\ressource;
+namespace app\ressource\database;
 
 use PDO;
 
 /**
- * Gestionnaire de bases de données MySQL
+ * DBMySQL
  *
- * @package app\ressource
+ * @package app\ressource\database
  */
-class Database {
+class DBMySQL implements IDBHandler {
 	/** @var string[][] les données de connexion */
 	private $keys = [];
 
@@ -29,21 +29,15 @@ class Database {
 	}
 
 	/**
-	 * Enregistre les données nécéssaires à instance pour une connexion MySQL
+	 * Registers a MySQL connection using PDO
 	 *
-	 * @param        $data
+	 * @param mixed[] $data connection data, must contain keys 'host', 'db', 'user' and 'password'
 	 * @param string $name
 	 */
 	public function addInstance($data, $name = 'default') {
 		$this->keys[$name] = $data;
 	}
 
-	/**
-	 * Retourne l'instance de PDO associée à $name, la créé si elle existe
-	 *
-	 * @param string $name
-	 * @return PDO
-	 */
 	public function getInstance($name = 'default') {
 		if (!isset($this->instances[$name])) {
 			return $this->instances[$name] = $this->getPDO($name);

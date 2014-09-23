@@ -7,27 +7,24 @@ use app\ressource\Database;
 use PDO;
 
 /**
- * Sert de wrapper aux différentes classes d'un projet
+ * Wrapper for an application
  *
  * @package app
  */
 abstract class Kernel {
-	/** @var Kernel l'instance du kernel */
-	private static $kernel;
-
-	/** @var AutoLoader l'instance de l'autoloader du projet */
+	/** @var AutoLoader application autoloader instance */
 	private $autoloader = null;
 
-	/**  @var Router l'instance du routeur du projet */
+	/**  @var Router application router instance */
 	private $router = null;
 
-	/** @var bool mode développeur */
+	/** @var bool debug mode */
 	private $devMode = false;
 
-	/** @var Configuration le gestionnaire de fichier de configuration du projet */
+	/** @var Configuration application configuration */
 	private $config = null;
 
-	/** @var Database le gestionnaire de connexions PDO */
+	/** @var Database application  */
 	protected $database = null;
 
 	/** @var string[] system locales filenames */

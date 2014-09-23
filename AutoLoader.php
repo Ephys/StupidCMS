@@ -1,41 +1,24 @@
 <?php
 namespace app;
+use Exception;
 
 /**
- * Charge dynamiquement les classes PHP du projet
+ * Dynamically loads project classes
  *
  * @package app
  */
 class AutoLoader {
 	private $paths = [];
-	private static $autoLoader;
 
-	private final function __construct() {
-	}
-
-	private final function __clone() {
+	public function __construct() {
+		$this->register();
 	}
 
 	/**
-	 * Retourne l'instance de l'autoloader, la créé si elle n'existe pas.
-	 * À appeller à la place du constructeur puisqu'il ne peut y avoir qu'une seule instance (singleton)
+	 * Adds a namespace to the classpath.
 	 *
-	 * @return AutoLoader
-	 */
-	public final static function getInstance() {
-		if (self::$autoLoader === null) {
-			self::$autoLoader = new AutoLoader();
-			self::$autoLoader->register();
-		}
-
-		return self::$autoLoader;
-	}
-
-	/**
-	 * Ajoute un namespace à la liste et enregistre le chemin vers le dossier y correspondant
-	 *
-	 * @param   string $namespace
-	 * @param   string $path
+	 * @param   string $namespace   The namespace
+	 * @param   string $path        The path this namespace is referring to
 	 * @return  $this
 	 */
 	public function add($namespace, $path) {
@@ -45,9 +28,9 @@ class AutoLoader {
 	}
 
 	/**
-	 * Retourne le dossier correspondant au namespace d'une classe
+	 * Looks up the filepath for a given class
 	 *
-	 * @param   string $clazz le nom d'une classe (namespace compris)
+	 * @param   string $clazz The name of a class, namespace included
 	 * @return  string|null
 	 */
 	private function getPath($clazz) {
@@ -60,28 +43,25 @@ class AutoLoader {
 	}
 
 	/**
-	 * Enregistre l'autoloader au registre de PHP, voir fonction native "spl_autoload_register"
+	 * Registers this autoloader to the autoload stack
 	 */
 	private function register() {
 		/** @link http://be2.php.net/manual/en/function.spl-autoload-register.php */
 		spl_autoload_register(function ($clazz) {
-			//if (class_exists($clazz)) return;
+			/** @var String $clazzPath filepath to include */
 			$clazzPath = $this->getPath($clazz);
 
 			if ($clazzPath === null)
 				return;
 
-			// remplace les antislashes d'un namespace par des slashs.
-			// app\cms\Router deviens app/cms/Router puis /home/ephys/projetPhp/app/cms/Router.php
-			// Fichier qui sera inclus.
 			$clazzPath = $clazzPath . '/' . str_replace('\\', '/', $clazz) . '.php';
 
 			if (!is_file($clazzPath))
-				throw new \Exception('File Not Found: ' . $clazzPath, 500);
+				throw new Exception('File Not Found: ' . $clazzPath, 500);
 
 			include_once $clazzPath;
 		});
 	}
 }
 
-return AutoLoader::getInstance();
+return new AutoLoader();

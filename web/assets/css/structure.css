@@ -1,0 +1,151 @@
+body {
+  background-color: #dddddd;
+  font-family: 'Aller';
+}
+header {
+  background-image: url('../img/congruent_outline.png');
+  color: #d3d3d3;
+}
+nav {
+  font-size: 1.2em;
+  background-color: #404040;
+  -webkit-box-shadow: inset 0px 0px 7.5px 0px #000000;
+  box-shadow: inset 0px 0px 7.5px 0px #000000;
+  border-top: 2px #363c45 solid;
+  border-bottom: 2px #7c8798 solid;
+}
+nav ul {
+  text-align: center;
+}
+nav ul li {
+  display: inline;
+}
+nav ul li:not(:last-of-type) {
+  border-right: 1px rgba(255, 255, 255, 0.25) solid;
+}
+nav ul li a {
+  display: inline-block;
+  margin: 7.5px 0;
+  padding: 0 25px;
+  color: #d3d3d3;
+  text-transform: uppercase;
+  position: relative;
+}
+nav ul li a:hover::after {
+  content: '';
+  display: block;
+  position: absolute;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #7c8798;
+  left: 45%;
+  top: -7.5px;
+}
+nav ul li a.active::after {
+  content: '';
+  display: block;
+  position: absolute;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid #7c8798;
+  left: 45%;
+  bottom: -7.5px;
+}
+main {
+  width: 1200px;
+  margin: 0 auto;
+}
+section {
+  padding: 0;
+  margin: 0 30px 15px 30px;
+  overflow: auto;
+  vertical-align: top;
+  color: #151515;
+  background-color: white;
+  box-shadow: 0 0 1px 0 #bbbbbb;
+  border-left: 3px #ff5a09 solid;
+}
+section.half {
+  display: inline-block;
+  width: 45%;
+  margin: 0 2.25% 15px 2.25%;
+}
+section pre {
+  padding: 15px;
+  background-color: #f4f4f4;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+/* ryanfait's sticky footer technique */
+#wrapper {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -53px;
+}
+#push {
+  height: 53px;
+}
+.cv {
+  position: relative;
+  vertical-align: middle;
+  width: 100px;
+  height: 200px;
+  overflow: hidden;
+  -moz-box-shadow: 0 0 1px #888888;
+  -webkit-box-shadow: 0 0 1px #888888;
+  box-shadow: 0 0 1px #888888;
+  transition: width 0.5s;
+  -webkit-transition: width 0.5s;
+  display: inline-block;
+}
+.cv.picture {
+  background-image: url('../img/preview.png');
+}
+.cv:last-of-type,
+.cv:hover {
+  width: 536px;
+}
+.cv:hover ~ :last-of-type {
+  width: 100px;
+}
+.cv .bottom {
+  transition: opacity 0.2s;
+  -webkit-transition: opacity 0.2s;
+  opacity: 0;
+  position: absolute;
+  bottom: 0;
+  background-color: #ff5a09;
+  color: white;
+}
+.cv .bottom:after {
+  content: '';
+  position: absolute;
+  right: -15px;
+  top: 0;
+  height: 0;
+  width: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-top: 15px solid white;
+}
+.cv:hover .bottom {
+  opacity: 1;
+}
+.cv h3 {
+  font-weight: bold;
+  font-size: 18px;
+  background-color: #ff5a09;
+  color: white;
+  text-align: left;
+  padding: 2px 20px;
+  height: 20px;
+  overflow: hidden;
+}
+footer {
+  height: 50px;
+  border-top: 3px #282828 solid;
+  text-align: center;
+  color: #d3d3d3;
+  background-color: #181818;
+}

@@ -1,0 +1,6 @@
+# http://stackoverflow.com/questions/20023601/internal-url-rewrite-no-longer-working-after-upgrading-apache-to-2-4
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ index.php [QSA,L]
+</IfModule>
